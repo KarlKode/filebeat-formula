@@ -1,4 +1,4 @@
-{% if salt['grains.get']('osfullname') == 'Ubuntu' %}
+{% if salt['grains.get']('osfullname') in ('Ubuntu', 'Debian') %}
 filebeat_repo:
   pkgrepo.managed:
     - name: deb https://packages.elastic.co/beats/apt stable main

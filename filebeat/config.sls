@@ -18,12 +18,13 @@ filebeat.config:
     - name: {{ conf.config_path }}
     - source: {{ conf.config_source }}
     - template: jinja
+    - makedirs: True
     - user: root
     - group: root
     - mode: 644
     - watch_in:
       - service: filebeat.service
 
-filebeat.runlevels_install:
-  cmd.run:
-    - name: update-rc.d filebeat defaults 95 10
+#filebeat.runlevels_install:
+#  cmd.run:
+#    - name: update-rc.d filebeat defaults 95 10

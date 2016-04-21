@@ -1,8 +1,8 @@
 {%- set filebeat = salt['pillar.get']('filebeat', {}) %}
+{%- set filebeat_logs = salt['pillar.get']('filebeat_logs', {}) %}
 filebeat:
   prospectors:
-{%- set log_paths = filebeat.get('log_paths', ['/var/log/auth.log', '/var/log/syslog']) %}
-{%- for log_path in log_paths %}
+{%- for log_name, log_path in filebeat_logs.items() %}
     -
       paths:
 {%- for path in log_path.paths %}
@@ -58,3 +58,4 @@ shipper:
 logging:
   files:
     rotateeverybytes: 10485760 # = 10MB
+
