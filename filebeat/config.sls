@@ -23,8 +23,11 @@ filebeat.config:
     - group: root
     - mode: 644
     - watch_in:
-      - service: filebeat.service
+# unfortunately, filebeat is restarted by cmd until tty issues are resolved
+      - cmd: filebeat.service
 
-#filebeat.runlevels_install:
-#  cmd.run:
-#    - name: update-rc.d filebeat defaults 95 10
+{% if conf.runlevels_install %}
+filebeat.runlevels_install:
+  cmd.run:
+    - name: update-rc.d filebeat defaults 95 10
+{% endif %}
